@@ -49,7 +49,6 @@ def read_hkl_map(path):
     from os.path import basename
     v.name = basename(path)
 
-#path = 'diffuse_signal.txt'
-#path = 'final_signal.hkl'
-path ='refmac_pre_symmetry.hkl'
-v = read_hkl_map(path)
+if __name__ == "__main__":
+    import sys
+    read_hkl_map(sys.argv[1])
