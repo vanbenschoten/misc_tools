@@ -145,15 +145,14 @@ def i1_i2_plot(data, cell_a, cell_b, cell_c):
     x = np.zeros(1)
     y = np.zeros(1)
     c_list = np.zeros(1)
-
-	for key_h in data:
+    for key_h in data:
 		for key_k in data[key_h]:
 			for key_l in data[key_h][key_k]:
 				if "Signal_1" in data[key_h][key_k][key_l]:
-					if "Signal_2" in data[key_h][key_k][key_l]:
+					if "Signal_2" in data[key_h][key_k][key_l] and int(key_h) > 0 and int(key_k) > 0 and int(key_l) > 0:
 
-						s_1 = float("Signal_1")
-						s_2 = float("Signal_2")
+						s_1 = float(data[key_h][key_k][key_l]["Signal_1"])
+						s_2 = float(data[key_h][key_k][key_l]["Signal_2"])
 
 						resolution = math.sqrt((cell_a/int(key_h))*(cell_a/int(key_h))+(cell_b/int(key_k))*(cell_b/int(key_k))+(cell_c/int(key_l))*(cell_c/int(key_l)))
 
@@ -178,17 +177,11 @@ def i1_i2_plot(data, cell_a, cell_b, cell_c):
 
 						np.delete(x,0)
 						np.delete(y,0)
-						np.delete(z,0)
+						np.delete(c_list,0)
 
-
-	plt.scatter(x,y,c=c_list)
-
-
-
-
-
-
-
+    plt.scatter(x,y)
+    plt.show()
+    print 'hello!'
 
 
 def split_map(data):
