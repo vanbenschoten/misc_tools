@@ -2,11 +2,9 @@ def run(args):
 
 	data = dictionary_conversion(args[0],args[1])
 
-	#data = single_conversion(args[0])
-
-	#print data
-
-	#rfactor = r_factor(data)
+	cell_a = float(args[2])
+	cell_b = float(args[3])
+	cell_c = float(args[4])
 
 	pearson = true_pcc(data)
 
@@ -135,6 +133,61 @@ def difference_map(data):
 							fout_p.write(key_h + ' ' + key_k + ' ' + key_l + ' ' + str(difference) + '\n')
 						else:
 							fout_n.write(key_h + ' ' + key_k + ' ' + key_l + ' ' + str(abs(difference)) + '\n')
+
+def i1_i2_plot(data, cell_a, cell_b, cell_c):
+
+    import math
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    x = np.zeros(1)
+    y = np.zeros(1)
+    c_list = np.zeros(1)
+
+	for key_h in data:
+		for key_k in data[key_h]:
+			for key_l in data[key_h][key_k]:
+				if "Signal_1" in data[key_h][key_k][key_l]:
+					if "Signal_2" in data[key_h][key_k][key_l]:
+
+						s_1 = float("Signal_1")
+						s_2 = float("Signal_2")
+
+						resolution = math.sqrt((cell_a/int(key_h))*(cell_a/int(key_h))+(cell_b/int(key_k))*(cell_b/int(key_k))+(cell_c/int(key_l))*(cell_c/int(key_l)))
+
+						if resolution < 2.5:
+							color = 'r'
+
+						elif resolution > 2.5 and resolution < 3.0:
+							color = 'g'
+
+						elif resolution > 3.0 and resolution < 3.5:
+							color = 'b'
+
+						elif resolution > 3.5 and resolution < 4.0:
+							color = 'y'
+
+						else:
+							color = 'c'
+
+						np.append(x,s_1)
+						np.append(y,s_2)
+						np.append(c_list,color)
+
+						np.delete(x,0)
+						np.delete(y,0)
+						np.delete(z,0)
+
+
+	plt.scatter(x,y,c=c_list)
+
+
+
+
+
+
+
+
 
 def split_map(data):
 	fout_p = open('positive_one.hkl', 'w')
