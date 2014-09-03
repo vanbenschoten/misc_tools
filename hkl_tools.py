@@ -15,6 +15,8 @@ def run(args):
 
 	print pearson
 
+	i1_i2_plot(data, cell_a, cell_b, cell_c)
+
 def single_conversion(map_1):
 
 	f_1 = open(map_1,'r')
